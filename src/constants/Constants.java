@@ -10,4 +10,6 @@ public class Constants {
     public static final String PLOTTING_BRUTE_FORCE_CSV_FILE_NAME = "brutePlot.csv";
     //this is the path to the lucene.csv
     public static final String PLOTTING_LUCENE_CSV_FILE_NAME = "lucenePlot.csv";
+    //this is the path to the lucene.csv
+    public static final String PLOTTING_HUFFMAN_CSV_FILE_NAME = "huffmanPlot.csv";
 }
