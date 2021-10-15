@@ -12,8 +12,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/** This class will create the chart for the brute force algorithm. */
 public class BruteForceChart extends ApplicationFrame {
-
+    //This constructor will set the layout/parameters and data for the chart.
     public BruteForceChart(String title, String chartTitle) throws IOException {
         super(title);
         JFreeChart lineChart = ChartFactory.createLineChart(
@@ -27,7 +28,7 @@ public class BruteForceChart extends ApplicationFrame {
         chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
         setContentPane( chartPanel );
     }
-
+    //This method will create the dataset for the chart from the csv file.
     private DefaultCategoryDataset createDataset( ) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(Constants.PLOTTING_BRUTE_FORCE_CSV_FILE_NAME));
         DefaultCategoryDataset dataset = new DefaultCategoryDataset( );

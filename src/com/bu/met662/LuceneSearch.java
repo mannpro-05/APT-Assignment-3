@@ -30,6 +30,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 
+/** This class uses the Lucene algorithm to search a keyword. */
 public class LuceneSearch {
 
     ArrayList<Integer> countCondition = new ArrayList<>(Arrays.asList(10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000));
@@ -38,6 +39,7 @@ public class LuceneSearch {
         this.keyword = keyword;
 
     }
+    //This method searches the keyword.
     public void luceneSearch(){
         try {
             final FileWriter csvWriter = new FileWriter(Constants.PLOTTING_LUCENE_CSV_FILE_NAME);
@@ -68,6 +70,7 @@ public class LuceneSearch {
                 w.commit();
                 Instant start = Instant.now();
                 int hitsPerPage = 10;
+                // 3. search
                 IndexReader reader = DirectoryReader.open(index);
                 IndexSearcher searcher = new IndexSearcher(reader);
                 TopDocs docs = searcher.search(q, hitsPerPage);
@@ -81,10 +84,8 @@ public class LuceneSearch {
             csvWriter.close();
             w.close();
 
-        } catch(IOException ex){
+        } catch(IOException | ParseException ex){
             ex.printStackTrace();
-        } catch (ParseException ex2) {
-            ex2.printStackTrace();
         }
     }
 
