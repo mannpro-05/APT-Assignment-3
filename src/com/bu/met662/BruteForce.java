@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-public class KeywordSearch {
+public class BruteForce {
 
 //    int counter = 0;
     ArrayList<Integer> countCondition = new ArrayList<>(Arrays.asList(10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000));
@@ -21,9 +21,7 @@ public class KeywordSearch {
 
     public void searchKeyword() {
         try {
-            final FileWriter csvWriter = new FileWriter(Constants.PLOTTING_CSV_FILE_NAME);
-            csvWriter.append("time,records");
-            csvWriter.append("\n");
+            final FileWriter csvWriter = new FileWriter(Constants.PLOTTING_BRUTE_FORCE_CSV_FILE_NAME);
             for (Integer i : countCondition) {
                 BufferedReader br = new BufferedReader(new FileReader(Constants.FILE_PATH));
                 String line;
@@ -43,14 +41,11 @@ public class KeywordSearch {
                 }
 
                 Instant end = Instant.now();
-                long timeElapsed = Duration.between(start, end).toNanos();
-                System.out.println(timeElapsed + " " + timeElapsed + "," + i);
-                csvWriter.append(timeElapsed / 1000 + "," + i);
+                long timeElapsed = Duration.between(start, end).toMillis();
+                csvWriter.append(timeElapsed + "," + i);
                 csvWriter.append("\n");
             }
             csvWriter.close();
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
