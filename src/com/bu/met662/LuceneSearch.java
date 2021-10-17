@@ -1,17 +1,5 @@
 package com.bu.met662;
 
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
-
 import constants.Constants;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -30,72 +18,85 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /** This class uses the Lucene algorithm to search a keyword. */
 public class LuceneSearch {
 
-    ArrayList<Integer> countCondition = new ArrayList<>(Arrays.asList(10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000));
-    String keyword;
-    public LuceneSearch(String keyword){
-        this.keyword = keyword;
+  ArrayList<Integer> countCondition =
+      new ArrayList<>(Arrays.asList(10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000));
+  String keyword;
 
-    }
-    //This method searches the keyword.
-    public void luceneSearch(){
-        try {
-            final FileWriter csvWriter = new FileWriter(Constants.PLOTTING_LUCENE_CSV_FILE_NAME);
-            // 0. Specify the analyzer for tokenizing text.  The same analyzer should be used for indexing and searching
-            StandardAnalyzer analyzer = new StandardAnalyzer();
+  // This method initializes the class variables.
+  public LuceneSearch(String keyword) {
+    this.keyword = keyword;
+  }
 
-            // 1. create the index
-            //Directory index = new Directory(Files.createTempDirectory("XXXXX"));
-            //Directory index = new ByteBuffersDirectory();
-            FSDirectory index = FSDirectory.open(Paths.get("C:\\Users\\mannp\\IdeaProjects\\APT-Assignment-3\\test.txt"));
+  private static void addDoc(IndexWriter w, String title, String isbn) throws IOException {
+    Document doc = new Document();
+    doc.add(new TextField("title", title, Field.Store.YES));
+    // use a string field for isbn because we don't want it tokenized
+    doc.add(new StringField("isbn", isbn, Field.Store.YES));
+    w.addDocument(doc);
+  }
 
-            IndexWriterConfig config = new IndexWriterConfig(analyzer);
-            IndexWriter w = new IndexWriter(index, config);
-            // 2. query
-            String querystr = this.keyword; //
+  // This method searches the keyword.
+  public void luceneSearch() {
+    try {
+      final FileWriter csvWriter = new FileWriter(Constants.PLOTTING_LUCENE_CSV_FILE_NAME);
+      // 0. Specify the analyzer for tokenizing text.  The same analyzer should be used for indexing
+      // and searching
+      StandardAnalyzer analyzer = new StandardAnalyzer();
 
-            // the "title" arg specifies the default field to use
-            // when no field is explicitly specified in the query.
-            Query q = new QueryParser("wearable", analyzer).parse(querystr);
+      // 1. create the index
+      // Directory index = new Directory(Files.createTempDirectory("XXXXX"));
+      // Directory index = new ByteBuffersDirectory();
+      FSDirectory index =
+          FSDirectory.open(Paths.get("C:\\Users\\mannp\\IdeaProjects\\APT-Assignment-3\\test.txt"));
 
-            for (Integer i : countCondition) {
-                BufferedReader br = new BufferedReader(new FileReader(Constants.FILE_PATH));
-                String line;
+      IndexWriterConfig config = new IndexWriterConfig(analyzer);
+      IndexWriter w = new IndexWriter(index, config);
+      // 2. query
+      String querystr = this.keyword; //
 
-                for (int ctr = 0; (line = br.readLine()) != null && ctr <= i; ctr++) {
-                    addDoc(w, line,String.valueOf(ctr));
-                }
-                w.commit();
-                Instant start = Instant.now();
-                int hitsPerPage = 10;
-                // 3. search
-                IndexReader reader = DirectoryReader.open(index);
-                IndexSearcher searcher = new IndexSearcher(reader);
-                TopDocs docs = searcher.search(q, hitsPerPage);
-                ScoreDoc[] hits = docs.scoreDocs;
+      // the "title" arg specifies the default field to use
+      // when no field is explicitly specified in the query.
+      Query q = new QueryParser("wearable", analyzer).parse(querystr);
 
-                Instant end = Instant.now();
-                long timeElapsed = Duration.between(start, end).toMillis();
-                csvWriter.append(timeElapsed+ "," + i);
-                csvWriter.append("\n");
-            }
-            csvWriter.close();
-            w.close();
+      for (Integer i : countCondition) {
+        BufferedReader br = new BufferedReader(new FileReader(Constants.FILE_PATH));
+        String line;
 
-        } catch(IOException | ParseException ex){
-            ex.printStackTrace();
+        for (int ctr = 0; (line = br.readLine()) != null && ctr <= i; ctr++) {
+          addDoc(w, line, String.valueOf(ctr));
         }
+        w.commit();
+        Instant start = Instant.now();
+        int hitsPerPage = 10;
+        // 3. search
+        IndexReader reader = DirectoryReader.open(index);
+        IndexSearcher searcher = new IndexSearcher(reader);
+        TopDocs docs = searcher.search(q, hitsPerPage);
+        ScoreDoc[] hits = docs.scoreDocs;
+
+        Instant end = Instant.now();
+        long timeElapsed = Duration.between(start, end).toMillis();
+        csvWriter.append(timeElapsed + "," + i);
+        csvWriter.append("\n");
+      }
+      csvWriter.close();
+      w.close();
+
+    } catch (IOException | ParseException ex) {
+      ex.printStackTrace();
     }
-
-    private static void addDoc(IndexWriter w, String title, String isbn) throws IOException {
-        Document doc = new Document();
-        doc.add(new TextField("title", title, Field.Store.YES));
-        // use a string field for isbn because we don't want it tokenized
-        doc.add(new StringField("isbn", isbn, Field.Store.YES));
-        w.addDocument(doc);
-    }
-
-
+  }
 }
