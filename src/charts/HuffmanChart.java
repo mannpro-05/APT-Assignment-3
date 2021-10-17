@@ -11,7 +11,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
+/** This class will create the chart for the Huffman encoding algorithm. */
 public class HuffmanChart extends ApplicationFrame {
     public HuffmanChart(String title, String chartTitle) throws IOException {
         super(title);
@@ -27,6 +27,8 @@ public class HuffmanChart extends ApplicationFrame {
         setContentPane( chartPanel );
 
     }
+
+    //This method will create the dataset for the chart from the csv file.
     private DefaultCategoryDataset createDataset( ) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(Constants.PLOTTING_HUFFMAN_CSV_FILE_NAME));
         DefaultCategoryDataset dataset = new DefaultCategoryDataset( );

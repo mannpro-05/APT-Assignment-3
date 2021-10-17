@@ -28,6 +28,7 @@ public class BruteForceChart extends ApplicationFrame {
         chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
         setContentPane( chartPanel );
     }
+
     //This method will create the dataset for the chart from the csv file.
     private DefaultCategoryDataset createDataset( ) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(Constants.PLOTTING_BRUTE_FORCE_CSV_FILE_NAME));
