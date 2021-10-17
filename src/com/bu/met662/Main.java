@@ -30,6 +30,7 @@ public class Main {
             "Time vs Number of records Brute Force for Keyword robot");
 
     bruteForceChart.pack();
+    bruteForceChart.setLocation(0, 0);
     // This to display the chart.
     bruteForceChart.setVisible(true);
 
@@ -39,6 +40,7 @@ public class Main {
             "Time vs Number of records Lucene for Keyword robot",
             "Time vs Number of records Lucene for Keyword robot");
     luceneChart.pack();
+    luceneChart.setLocation(600,0);
     // This to display the chart.
     luceneChart.setVisible(true);
 
@@ -48,6 +50,7 @@ public class Main {
             "Time vs Number of records Huffman for Keyword Wearable",
             "Time vs Number of records Huffman for Keyword Robot");
     huffmanChartRobot.pack();
+    huffmanChartRobot.setLocation(1200,0);
     huffmanChartRobot.setVisible(true);
 
     // These are the objects for searching the wearable keyword.
@@ -68,6 +71,7 @@ public class Main {
             "Time vs Number of records Brute Force for Keyword Wearable",
             "Time vs Number of records Brute Force for Keyword Wearable");
     bruteForceChartWearable.pack();
+    bruteForceChartWearable.setLocation(0,500);
     // This to display the chart.
     bruteForceChartWearable.setVisible(true);
 
@@ -79,6 +83,7 @@ public class Main {
             "Time vs Number of records Lucene for Keyword Wearable",
             "Time vs Number of records Lucene for Keyword Wearable");
     luceneChartWearable.pack();
+    luceneChartWearable.setLocation(600,500);
     // This to display the chart.
     luceneChartWearable.setVisible(true);
 
@@ -89,6 +94,7 @@ public class Main {
             "Time vs Number of records Huffman for Keyword Wearable",
             "Time vs Number of records Huffman for Keyword Wearable");
     huffmanChartWearable.pack();
+    huffmanChartWearable.setLocation(1200, 500);
     huffmanChartWearable.setVisible(true);
   }
 }
