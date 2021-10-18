@@ -28,3 +28,8 @@
 - So you just have to run the file give some time for execution and 6 charts will be there on the screen.
 - They will overlap each other so, you will have to drag them and place them around your screen to see the results.
 - I will also be attaching a screenshot of the charts in the read me file.
+
+# Note
+
+- The search results for the wearable keyword will be empty as there is no keyword wearable in the first 1000 lines of
+  the dataset.
