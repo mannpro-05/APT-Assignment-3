@@ -50,6 +50,7 @@ public class LuceneSearch {
 
   // This method searches the keyword.
   public void luceneSearch() {
+    System.out.println("\nSearch Results for "+ this.keyword +" in Lucene Search!");
     try {
       final FileWriter csvWriter = new FileWriter(Constants.PLOTTING_LUCENE_CSV_FILE_NAME);
       // 0. Specify the analyzer for tokenizing text.  The same analyzer should be used for indexing
@@ -69,7 +70,7 @@ public class LuceneSearch {
 
       // the "title" arg specifies the default field to use
       // when no field is explicitly specified in the query.
-      Query q = new QueryParser("wearable", analyzer).parse(querystr);
+      Query q = new QueryParser("title", analyzer).parse(querystr);
 
       for (Integer i : countCondition) {
         BufferedReader br = new BufferedReader(new FileReader(Constants.FILE_PATH));
@@ -86,7 +87,12 @@ public class LuceneSearch {
         IndexSearcher searcher = new IndexSearcher(reader);
         TopDocs docs = searcher.search(q, hitsPerPage);
         ScoreDoc[] hits = docs.scoreDocs;
+        for(int j=0; j<hits.length; ++j) {
 
+          int docId = hits[j].doc;
+          Document d = searcher.doc(docId);
+          System.out.println((j + 1) + ". isbn: " + d.get("isbn") + "\t title: " + d.get("title"));
+        }
         Instant end = Instant.now();
         long timeElapsed = Duration.between(start, end).toMillis();
         csvWriter.append(timeElapsed + "," + i);

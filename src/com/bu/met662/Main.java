@@ -55,13 +55,13 @@ public class Main {
 
     // These are the objects for searching the wearable keyword.
     BruteForce bruteForceWearable = new BruteForce();
-    bruteForceWearable.setKeyword("wearable");
+    bruteForceWearable.setKeyword("wearables");
     bruteForceWearable.searchKeyword();
 
-    LuceneSearch luceneSearchWearable = new LuceneSearch("wearable");
+    LuceneSearch luceneSearchWearable = new LuceneSearch("wearables");
     luceneSearchWearable.luceneSearch();
 
-    HuffmanSearch huffmanSearchWearable = new HuffmanSearch("wearable");
+    HuffmanSearch huffmanSearchWearable = new HuffmanSearch("wearables");
     huffmanSearchWearable.huffmanSearch();
 
 

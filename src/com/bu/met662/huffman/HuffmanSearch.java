@@ -25,11 +25,11 @@ public class HuffmanSearch {
 
   // This method encodes the data and the keyword into huffman code and then searches it.
   public void huffmanSearch() throws IOException {
-    BufferedReader br = new BufferedReader(new FileReader(Constants.FILE_PATH));
+    System.out.println("\nSearch Results for "+ this.keyword +" in Hoffman Compression Search!");
     String line, big = null;
     final FileWriter csvWriter = new FileWriter(Constants.PLOTTING_HUFFMAN_CSV_FILE_NAME);
     for (int i : countCondition) {
-
+      BufferedReader br = new BufferedReader(new FileReader(Constants.FILE_PATH));
       for (int ctr = 0; (line = br.readLine()) != null && ctr <= i; ctr++) {
         big += line.toLowerCase();
       }
@@ -45,7 +45,9 @@ public class HuffmanSearch {
         for (char c : line.toCharArray()) {
           lineSb.append(code.get(c));
         }
-        if (lineSb.toString().contains(keywordSb.toString())) {}
+        if (lineSb.toString().contains(keywordSb.toString())) {
+          System.out.println(line);
+        }
 
         lineSb.setLength(0);
       }

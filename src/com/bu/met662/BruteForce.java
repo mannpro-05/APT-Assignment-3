@@ -20,6 +20,7 @@ public class BruteForce {
 
   // This method searches the keyword.
   public void searchKeyword() {
+    System.out.println("\nSearch Results for "+ this.keyword +" in Brute Force Search!");
     try {
       final FileWriter csvWriter = new FileWriter(Constants.PLOTTING_BRUTE_FORCE_CSV_FILE_NAME);
       for (Integer i : countCondition) {
@@ -29,7 +30,7 @@ public class BruteForce {
 
         for (int ctr = 0; (line = br.readLine()) != null && ctr <= i; ctr++) {
           if (line.contains(this.keyword)) {
-            TimeUnit.MILLISECONDS.sleep(1);
+            System.out.println(line);
           }
         }
 

@@ -103,29 +103,16 @@ public class Huffman {
     obj[0] = root;
     obj[1] = huffmanCode;
 
-    // Print encoded string
-    StringBuilder sb = new StringBuilder();
-    for (char c : text.toCharArray()) {
-      sb.append(huffmanCode.get(c));
-    }
-
     return obj;
-    //        System.out.print("The decoded string is: ");
-    //
-    //        if (isLeaf(root))
-    //        {
-    //            // Special case: For input like a, aa, aaa, etc.
-    //            while (root.freq-- > 0) {
-    //                System.out.print(root.ch);
-    //            }
-    //        }
-    //        else {
-    //            // Traverse the Huffman Tree again and this time,
-    //            // decode the encoded string
-    //            int index = -1;
-    //            while (index < sb.length() - 1) {
-    //                index = decode(root, index, sb);
-    //            }
+  }
 
+  public static void decodeLine(Node root, StringBuilder sb) {
+
+    // Traverse the Huffman Tree again and this time,
+    // decode the encoded string
+    int index = -1;
+    while (index < sb.length() - 1) {
+      index = decode(root, index, sb);
+    }
   }
 }
