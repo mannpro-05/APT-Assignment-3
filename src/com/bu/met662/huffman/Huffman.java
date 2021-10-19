@@ -105,14 +105,4 @@ public class Huffman {
 
     return obj;
   }
-
-  public static void decodeLine(Node root, StringBuilder sb) {
-
-    // Traverse the Huffman Tree again and this time,
-    // decode the encoded string
-    int index = -1;
-    while (index < sb.length() - 1) {
-      index = decode(root, index, sb);
-    }
-  }
 }
